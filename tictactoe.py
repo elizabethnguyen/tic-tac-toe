@@ -1,39 +1,58 @@
 import turtle
 
+class Player:
+    'Player class with a name and a color as a parameter.'
+    def __init__(self, name, color):
+        self.name = turtle.Turtle()
+        self.name.speed(0)
+        self.name.shape("blank")
+        self.name.pensize(4)
+        self.name.hideturtle()
+        while True:
+            try:
+                self.name.color(str(color))
+                break
+            except:
+                color = raw_input("Please enter a valid color: ")
+        self.name.up()
+
+    def up(self):
+        self.name.up()
+    def down(self):
+        self.name.down()
+    def left(self, x):
+        self.name.left(x)
+    def forward(self, t):
+        self.name.forward(t)
+    def setheading(self, t):
+        self.name.setheading(t)
+    def home(self):
+        self.name.home()
+    def goto(self, x, y):
+        self.name.goto(x, y)
+    
+# Player 1
+name = raw_input("Enter Player One's Name: ")
+color = raw_input("Enter %s's Color: " % name)
+p1 = Player(name, color)
+
+# Player 2
+name = raw_input("Enter Player Two's Name: ")
+color = raw_input("Enter %s's Color: " % name)
+p2 = Player(name, color)
+
+# Victory Message Turtle
+message = Player("Victory", "black")
+message.goto(-50,-130)
+
 # Initialize the turtles and screen for the game.
 wn = turtle.Screen()
 wn.screensize(339, 296)
 wn.setup(width=350, height=300, startx=140, starty=None)
 wn.bgpic("tictactoe.gif")
 
-# Player 1
-p1 = turtle.Turtle()
-p1.color("blue")
-p1.speed(0)
-p1.shape("blank")
-p1.pensize(4)
-p1.hideturtle()
-p1.up()
-
-# Player 2
-p2 = turtle.Turtle()
-p2.color("red")
-p2.speed(0)
-p2.shape("blank")
-p2.pensize(4)
-p2.hideturtle()
-p2.up()
-
-# Victory Message Turtle
-message = turtle.Turtle()
-message.color("black")
-message.pensize(6)
-message.hideturtle()
-message.up()
-message.goto(-50,-130)
-
 # Initialize the board with a list to keep track of moves
-board = [0] * 9
+board = [0] * 10
 
 # Initialize a dictionary to keep track of co-ordinates to draw
 # These will differ due to how the shapes are drawn!
