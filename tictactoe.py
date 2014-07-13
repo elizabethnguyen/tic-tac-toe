@@ -12,7 +12,13 @@ wn.bgpic("tictactoe.gif")
 p1 = Player()
 p2 = Player()
 board = Board()
-        
+
+# Needs work ...        
+def reset_players():
+    p1 = Player()
+    p2 = Player()
+    
+
 def get_next_turn(player):
     if player is None:
         return p1
@@ -20,6 +26,28 @@ def get_next_turn(player):
         return p2
     if player == p2:
         return p1
+
+def check_move(move):
+    try:
+        int(move)
+    except:
+        return False
+    if int(move) < 10 and int(move) > 0:
+        if board.tile[int(move)] == None:
+            return True
+    else:
+        return False
+
+# Needs work ...
+def play_again():
+    response = raw_input("Play again? (y/n): ")
+    if str.lower(response) == "y":
+        wn.resetscreen()
+        board.reset_board()
+        reset_players()
+        return False
+    else:
+        return True
 
 def game():
     endGame = False
@@ -29,26 +57,15 @@ def game():
         player = get_next_turn(player)
         move = raw_input("%s's move: " % player.name)
 
-        # Conditions to ensure the user does not try to break the game!
-        while True:
-            try:
-                int(move)
-                if int(move) < 10 and int(move) > 0:
-                    if board.tile[int(move)] == None:
-                        board.tile[int(move)] = player
-                        break
-                    else:
-                        move = raw_input("Please enter a valid move: ")
-                else:
-                    move = raw_input("Please enter a valid move: ")
-            except:
-                move = raw_input("Please enter a valid move: ")
+        if check_move(move) is True:
+            board.tile[int(move)] = player
+        else:
+            move = raw_input("Please enter a valid move: ")
 
         player.move_token(int(move))
         player.draw_shape()
-        if board.check_victory(player) is True \
-                or board.check_tie() is True:
+        if board.check_victory(player) is True or board.check_tie() is True:
             endGame = True
-        
+
 game()
-wn.exitonclick()
+wn.bye()

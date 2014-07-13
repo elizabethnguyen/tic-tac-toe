@@ -12,6 +12,12 @@ class Board:
         Board.message.up()
         Board.message.goto(-50,-130)
 
+    def reset_board(self):
+        Board.tile = [None] * 10
+        Board.message.hideturtle()
+        Board.message.up()
+        Board.message.goto(-50,-130)
+
     def check_victory(self, player):
         if Board.tile[1] == player:
             if Board.tile[5] == player:
@@ -59,13 +65,13 @@ class Board:
                 counter += 1
         if counter == 9:
             Board.message.write("Cats Game!")
-            print "Cats Game! \nThe game has ended. Please click on the window to close the game."
+            print "Cats Game! \nThe game has ended."
             return True
         else:
             return False
 
     def victory(self, player):
         Board.message.write("%s Wins!" % player.name)
-        print "%s wins! \nThe game has ended. Please click on the window to close the game." % player.name
+        print "%s wins! \nThe game has ended." % player.name
 
 
